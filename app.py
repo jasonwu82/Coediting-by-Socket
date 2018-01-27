@@ -1,9 +1,11 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
 import redis
+import os
 
 
-r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+#r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+r = redis.from_url(os.environ.get("REDIS_URL"))
 
 app = Flask(__name__)
 socketio = SocketIO(app)
