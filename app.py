@@ -5,7 +5,7 @@ import os
 
 
 #r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
-r = redis.from_url(os.environ.get("REDIS_URL"))
+r = redis.from_url(os.environ.get("REDIS_URL"), decode_responses=True)
 
 app = Flask(__name__)
 socketio = SocketIO(app)
