@@ -35,7 +35,8 @@
             // to the client. The data is then displayed in the "Received"
             // section of the page.
             socket.on('my_response', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+                //$('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+                console.log('Received #' + msg.count + ': ' + msg.data);
             });
             socket.on('edit_main_response', function(msg) {
                 //alert(msg.data);
@@ -44,12 +45,9 @@
                 $('#main_edit_data').val(msg.data);
             });
 
-
-
             // Handlers for the different forms in the page.
             // These accept data from the user and send it to the server in a
             // variety of ways
-
             $('form#main_edit').submit(function(event) {
                 socket.emit('edit_main', {data: $('#main_edit_data').val()});
                 return false;
@@ -60,7 +58,7 @@
                 return false;
             }
 
-            $('#main_edit_data').on('keyup', on_main_edit_change);
+            $('#main_edit_data').on('change keyup', on_main_edit_change);
 
         });
     </script>
@@ -76,7 +74,7 @@
     <br>
     <textarea id="main_edit_data" rows="20" cols="50" name="share" form="main_edit"
               onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+ '     '+v.substring(e);this.selectionStart=this.selectionEnd=s+4;return false;}"></textarea>
-    <h2>Receive:</h2>
+
     <div id="log"></div>
 </body>
 </html>
